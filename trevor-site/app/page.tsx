@@ -15,7 +15,7 @@ export default function Home() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const response = await fetch("https://formspree.io/f/YOURFORMID", {
+    const response = await fetch("https://formspree.io/f/mzdalkkz", {
       method: "POST",
       body: data,
       headers: { Accept: "application/json" },
