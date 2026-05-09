@@ -1,220 +1,169 @@
-"use client";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { useState } from "react";
+import ContactForm from "./components/ContactForm";
+import Image from "next/image";
+
+const skills = [
+  "SolidWorks", "3D Printing", "Mechanical Design",
+  "Rack & Pinion Systems", "Embedded Systems", "Arduino / C++",
+  "Technical Documentation", "Team Collaboration",
+];
 
 export default function Home() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    const response = await fetch("https://formspree.io/f/mzdalkkz", {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-    });
-
-    if (response.ok) {
-      setSubmitted(true);
-      form.reset();
-    }
-
-    setLoading(false);
-  }
-
   return (
-    <main className="min-h-screen bg-white text-black">
+    <div className="bg-white text-gray-900">
       <Navbar />
 
-      {/* HERO */}
-      <section className="relative h-[85vh] flex items-center justify-center text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1492724441997-5dc865305da7')",
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60" />
-
-        <div className="relative text-center max-w-3xl px-6">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Professional Websites for Small Businesses
+      {/* ── Hero ── */}
+      <section className="min-h-[60vh] flex flex-col justify-center px-6 pt-16">
+        <div className="max-w-4xl mx-auto w-full">
+          <p className="text-sm text-blue-600 font-medium mb-3 tracking-wide">
+            Engineering Student
+          </p>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-4 text-gray-900">
+            Hi, I&apos;m Trevor Witkowski.
           </h1>
-          <p className="text-xl mb-8">
-            Modern, fast, and affordable websites that help your business stand out and attract more customers.
-          </p>
-                <a
-        href="#contact"
-        className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition inline-block"
-         >
-        Get a Free Quote
-        </a>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section className="py-20 px-10 bg-gray-50">
-        <div className="max-w-6xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">What I Offer</h2>
-          <p className="text-gray-600">
-            Everything your small business needs to succeed online.
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-          {[
-            "Custom Business Websites",
-            "Mobile Optimization",
-            "SEO & Speed Optimization",
-          ].map((service, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-xl shadow hover:shadow-xl transition"
-            >
-              <h3 className="text-xl font-semibold mb-4">{service}</h3>
-              <p className="text-gray-600">
-                Clean, modern design tailored to your brand and built to convert visitors into customers.
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* WHY CHOOSE ME */}
-      <section className="py-20 px-10">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Why Small Businesses Choose Me
-          </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            I focus on clarity, clean design, and performance. No bloated templates.
-            No confusing tech talk. Just simple, effective websites that help you grow.
+          <p className="text-xl text-gray-500 max-w-xl leading-relaxed">
+            I design and build mechanical systems — from CAD models to working prototypes.
           </p>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="bg-gray-100 py-20 px-10">
-        <div className="max-w-6xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            What Clients Are Saying
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {[
-            {
-              name: "Sarah L.",
-              business: "Local Bakery Owner",
-              review:
-                "Our new website brought in more inquiries within the first month than we had all year. Clean, professional, and exactly what we needed.",
-            },
-            {
-              name: "Mark D.",
-              business: "Landscaping Company",
-              review:
-                "He made the entire process simple. We now look like a real company online instead of a DIY site.",
-            },
-            {
-              name: "Emily R.",
-              business: "Boutique Fitness Studio",
-              review:
-                "Fast turnaround, great communication, and the design exceeded expectations.",
-            },
-          ].map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-xl shadow"
-            >
-              <p className="text-gray-600 mb-6">
-                "{testimonial.review}"
-              </p>
-              <h4 className="font-semibold">{testimonial.name}</h4>
-              <p className="text-sm text-gray-500">
-                {testimonial.business}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      
-        {/* CONTACT SECTION */}
-    <section id="contact" className="py-24 bg-black text-white px-6">
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold mb-4">
-          Let’s Build Your Website
-        </h2>
-        <p className="text-gray-400">
-          Tell me about your business and your goals.
-        </p>
-      </div>
-
-      {submitted ? (
-        <div className="max-w-3xl mx-auto bg-green-600/20 border border-green-500 text-green-400 p-6 rounded-xl text-center">
-          ✅ Thank you! Your message has been sent successfully.
-          <div className="mt-4">
-            I’ll get back to you within 24 hours.
+      {/* ── About ── */}
+      <section id="about" className="py-16 px-6 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 className="text-2xl font-bold mb-5">About me</h2>
+            <p className="text-gray-500 leading-relaxed mb-4">
+              I&apos;m an engineering student with hands-on experience in mechanical
+              design, CAD modeling, and embedded systems. I love taking a problem
+              from a rough idea all the way to a finished, working prototype.
+            </p>
+            <p className="text-gray-500 leading-relaxed">
+              Outside of engineering, I&apos;m always looking for the next project
+              to sink my teeth into.
+            </p>
           </div>
-        </div>
-      ) : (
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-3xl mx-auto space-y-6 bg-gray-900 p-10 rounded-2xl shadow-2xl"
-        >
-          <div className="grid md:grid-cols-2 gap-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              required
-              className="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:border-white outline-none transition"
-            />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-              className="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:border-white outline-none transition"
+          <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <Image
+              src="/images/team-photo.jpg"
+              alt="Trevor with the S.L.E.D project team"
+              width={600}
+              height={420}
+              className="w-full h-full object-cover"
+              unoptimized
             />
           </div>
+        </div>
+      </section>
 
-          <input
-            type="text"
-            name="business"
-            placeholder="Business Name"
-            className="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:border-white outline-none transition"
-          />
+      {/* ── Projects ── */}
+      <section id="projects" className="py-16 px-6 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-12">Projects</h2>
 
-          <textarea
-            name="message"
-            placeholder="Tell me about your project..."
-            rows={5}
-            required
-            className="w-full p-4 rounded-lg bg-gray-800 border border-gray-700 focus:border-white outline-none transition"
-          />
+          {/* Putt Master */}
+          <div className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+            {/* GIF hero */}
+            <div className="bg-gray-50 flex items-center justify-center gap-6 p-8 border-b border-gray-100 flex-wrap">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/putt-master-demo.gif"
+                alt="Putt Master full project demo"
+                className="max-h-64 rounded-lg"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/sled-gears.gif"
+                alt="Putt Master rack and pinion mechanism in motion"
+                className="max-h-64 rounded-lg"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-white text-black py-4 rounded-lg font-semibold hover:bg-gray-200 transition"
-          >
-            {loading ? "Sending..." : "Send Message"}
-          </button>
-        </form>
-      )}
-    </section>
+            {/* Info */}
+            <div className="p-8">
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["Mechanical", "Electronics", "Team Project"].map(tag => (
+                  <span key={tag}
+                    className="text-xs px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Putt Master</h3>
+              <p className="text-gray-500 leading-relaxed mb-8 max-w-2xl">
+                An adaptable golf putting green built with a 5-person team. A
+                motor-driven rack-and-pinion system adjusts the terrain angle,
+                and removable obstacles can be placed on the turf to change the
+                difficulty — making every round different.
+              </p>
+
+              {/* CAD images */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                {[
+                  { src: "/images/sled-ramp.jpg", alt: "Terrain adjustment arm" },
+                  { src: "/images/sled-mount.jpg", alt: "Motor mount bracket" },
+                  { src: "/images/sled-gears.jpg", alt: "Rack & pinion mechanism" },
+                ].map((img) => (
+                  <div key={img.src}
+                    className="rounded-xl overflow-hidden border border-gray-100 bg-gray-50 aspect-video flex items-center justify-center">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      width={400}
+                      height={280}
+                      className="w-full h-full object-contain p-3"
+                      unoptimized
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Meta */}
+              <div className="flex flex-wrap gap-6 text-sm text-gray-500 border-t border-gray-100 pt-6">
+                <span><span className="text-gray-900 font-medium">Role</span> — Mechanical Designer</span>
+                <span><span className="text-gray-900 font-medium">Team</span> — 5 members</span>
+                <span><span className="text-gray-900 font-medium">Tools</span> — SolidWorks, Arduino</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Skills ── */}
+      <section id="skills" className="py-16 px-6 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8">Skills</h2>
+          <div className="flex flex-wrap gap-3">
+            {skills.map(skill => (
+              <span key={skill}
+                className="px-4 py-2 border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-colors">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact ── */}
+      <section id="contact" className="py-16 px-6 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Get in touch</h2>
+            <p className="text-gray-500 leading-relaxed mb-6">
+              Open to internship opportunities, project collaborations, or just
+              a conversation about engineering.
+            </p>
+            <a href="mailto:trevwit07@gmail.com"
+              className="text-sm text-blue-600 hover:underline">
+              trevwit07@gmail.com
+            </a>
+          </div>
+          <ContactForm />
+        </div>
+      </section>
+
       <Footer />
-    </main>
+    </div>
   );
 }
-
